@@ -1,0 +1,41 @@
+# Generated from BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend for workload 206.
+# Parameter names come from Parameter_01..Parameter_20. Values come only from Parameters_SmokeBaselineExtend.
+# Do not invent or replace these tokens/numbers. Nested list/map reshaping is allowed
+# when the runner needs structured sweeps; keep the same tokens and numbers.
+# Command columns on Workload_Definitions are generated display. Sweep/list flags in those
+# commands are documentary; omit them so yaml expands cases.
+# sweep.profile is baseline for LLM Serving and smoke otherwise.
+# Add thresholds: or baselines: from hardware_profile.mi300x.yaml and Workload Type.
+sweep:
+  profile: smoke
+  io_engine: libaio
+  filename: data/fio_target.bin
+  direct: 1
+  sync_mode: async
+  rw:
+    smoke: randread
+    baseline: randread,randwrite
+    extended: randread,randwrite,read,write
+  block_size:
+    smoke: 4k
+    baseline: 4k,8k
+    extended: 4k,8k,128k
+  size:
+    smoke: 64m
+    baseline: 1g
+    extended: 4g
+  io_depth:
+    smoke: 1,8
+    baseline: 1,8,32
+    extended: 1,8,32,64
+  num_jobs: 4
+  warmup_duration_sec:
+    smoke: 0
+    baseline: 2
+    extended: 1
+  runtime:
+    smoke: 5
+    baseline: 15
+    extended: 12
+  time_based: 1
+  stonewall: 1
