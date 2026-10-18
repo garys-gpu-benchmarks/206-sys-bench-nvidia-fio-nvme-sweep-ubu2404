@@ -32,14 +32,14 @@ This repository is one of the 32 workloads in the NVIDIA Ubuntu 24.04 bundle, [`
 apt-get update && apt-get install -y git
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404 /opt/benchmarks \
   && cd /opt/benchmarks \
-  && ./run.sh list \
+  && ./run_benchmark_suite.sh --list \
   && cd /opt/benchmarks/206-sys-bench-nvidia-fio-nvme-sweep-ubu2404 \
   && bash run_benchmark.sh --profile smoke --validate \
   && cd /opt/benchmarks \
   && echo "Done: 32 workloads in /opt/benchmarks; 206-sys-bench-nvidia-fio-nvme-sweep-ubu2404 smoke run passed. Next: ./run_benchmark_suite.sh --help"
 ```
 
-Every line in `./run.sh list` should show `ready`. The commands are joined with `&&`, so if the clone or the smoke run fails, the chain stops there, and the closing message appears only when everything succeeded. The chain ends in `/opt/benchmarks`, where the suite runner is. For more extensive testing:
+Every line in `./run_benchmark_suite.sh --list` should show `ready`; it exits with an error if any workload is not fetched. The commands are joined with `&&`, so if the clone, the list or the smoke run fails, the chain stops there, and the closing message appears only when everything succeeded. The chain ends in `/opt/benchmarks`, where the suite runner is. For more extensive testing:
 
 ```bash
 ./run_benchmark_suite.sh -p smoke                 # smoke test of all 32 workloads
@@ -73,8 +73,8 @@ Three operator scripts from [`garys-gpu-benchmarks/gpu-bench-suite`](https://git
 - **`get_remote_info.sh`** (on your laptop; Git Bash on Windows) — over one SSH connection, copies the runtime ledger and every workload's `results/raw`, `results/parsed` and suite logs into `RUNTIME_LEDGERS/` and `DIRECTORIES/`.
   ```bash
   git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite && cd gpu-bench-suite
-  ./scripts/get_remote_info.sh 203.0.113.10                     # root@host, port 22
-  ./scripts/get_remote_info.sh -i ~/.ssh/id_ed25519 -o ~/results ubuntu@203.0.113.10 2222
+  ./scripts/get_remote_info.sh --host 203.0.113.10              # root@host, port 22
+  ./scripts/get_remote_info.sh --host ubuntu@203.0.113.10 --port 2222 -i ~/.ssh/id_ed25519 -o ~/results
   ```
 - **`show_metrics.sh`** (laptop or GPU host) — prints one workload's runs from the runtime ledger in fixed-width metric columns with per-profile means. On the GPU host it is `/opt/benchmarks/show_metrics.sh`.
   ```bash
@@ -90,15 +90,15 @@ Cartesian fio sweep writing JSON jobs against a file target (default data/fio_ta
 ## 2. What It Validates
 
 - Validates that each fio JSON job completes and parses IOPS, bandwidth, and clat percentiles. This is storage I/O, not a memory test
-- #1: IOPS mean (iops_mean); is present and physically sensible.
-- #2: Bandwidth, MB/s, by block size (bandwidth_mb_s); is present and physically sensible.
-- #3: Completion latency p50, us (clat_p50_us) is present and physically sensible.
+- #1: IOPS mean at first sweep case (iops_mean); is present and physically sensible.
+- #2: Bandwidth at first sweep case, MB/s (bandwidth_mb_s); is present and physically sensible.
+- #3: Completion latency p50 at first sweep case, us (clat_p50_us) is present and physically sensible.
 
 ## 3. Metrics Captured
 
-- **#1: IOPS mean** — stored as `iops_mean`.
-- **#2: Bandwidth, MB/s, by block size** — stored as `bandwidth_mb_s`.
-- **#3: Completion latency p50, us** — stored as `clat_p50_us`.
+- **#1: IOPS mean at first sweep case** — stored as `iops_mean`.
+- **#2: Bandwidth at first sweep case, MB/s** — stored as `bandwidth_mb_s`.
+- **#3: Completion latency p50 at first sweep case, us** — stored as `clat_p50_us`.
 
 ## 4. Hardware Requirements
 
@@ -128,8 +128,8 @@ Ubuntu 24.04 / NVIDIA / Bash, SQLite, Python, PyYAML, Flexible I/O Tester (FIO),
 | OS | Ubuntu 24.04 |
 | Kernel | kernel 6.8.0 |
 | Python | Python 3.12.3 |
-| ROCm | CUDA 12.8 |
-| rocBLAS | N/A - rocBLAS not used |
+| ROCm | CUDA 12.6 (nvcc 12.6.85 preinstalled in the container; setup installs 12.8 only when nvcc is missing). Driver 580.159.04 reports CUDA 13.0 |
+| rocBLAS | N/A - cuBLAS not used |
 
 Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path.
 

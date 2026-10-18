@@ -37,9 +37,9 @@ sample_index,status,rw,block_size,io_depth,num_jobs,iops_mean,iops_p95,iops_p99,
 
 ## Metrics
 
-- **#1: IOPS mean** — stored as `iops_mean`.
-- **#2: Bandwidth, MB/s, by block size** — stored as `bandwidth_mb_s`.
-- **#3: Completion latency p50, us** — stored as `clat_p50_us`.
+- **#1: IOPS mean at first sweep case** — stored as `iops_mean`.
+- **#2: Bandwidth at first sweep case, MB/s** — stored as `bandwidth_mb_s`.
+- **#3: Completion latency p50 at first sweep case, us** — stored as `clat_p50_us`.
 
 ## Framework
 
