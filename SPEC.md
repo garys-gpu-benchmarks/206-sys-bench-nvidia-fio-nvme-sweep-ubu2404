@@ -2,7 +2,7 @@
 
 ## Execution Description
 
-Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path. direct: 1. Sweep dimensions: io_engine, filename, direct, sync_mode, rw, block_size, size, io_depth.
+Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path. direct: 1. Sweep dimensions: io_engine, filename, direct, rw, block_size, size, io_depth, num_jobs.
 
 ## Parameters
 
@@ -11,7 +11,6 @@ Cartesian fio sweep writing JSON jobs against a file target (default data/fio_ta
 | io_engine | `--io-engine` | smoke=libaio, baseline=libaio, extended=libaio | libaio | From Parameter list; see Execution Description With Parameters. |
 | filename | `--filename` | smoke=data/fio_target.bin, baseline=data/fio_target.bin, extended=data/fio_target.bin | data/fio_target.bin | From Parameter list; see Execution Description With Parameters. |
 | direct | `--direct` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
-| sync_mode | `--sync-mode` | smoke=async, baseline=async, extended=async | async | From Parameter list; see Execution Description With Parameters. |
 | rw | `--rw` | smoke=randread, baseline=randread,randwrite, extended=randread,randwrite,read,write | randread,randwrite | From Parameter list; see Execution Description With Parameters. |
 | block_size | `--block-size` | smoke=4k, baseline=4k,8k, extended=4k,8k,128k | 4k,8k | From Parameter list; see Execution Description With Parameters. |
 | size | `--size` | smoke=64m, baseline=1g, extended=4g | 1g | From Parameter list; see Execution Description With Parameters. |
@@ -19,8 +18,6 @@ Cartesian fio sweep writing JSON jobs against a file target (default data/fio_ta
 | num_jobs | `--num-jobs` | smoke=4, baseline=4, extended=4 | 4 | From Parameter list; see Execution Description With Parameters. |
 | warmup_duration_sec | `--warmup-duration-sec` | smoke=0, baseline=2, extended=1 | 2 | From Parameter list; see Execution Description With Parameters. |
 | runtime | `--runtime` | smoke=5, baseline=15, extended=12 | 15 | From Parameter list; see Execution Description With Parameters. |
-| time_based | `--time-based` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
-| stonewall | `--stonewall` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
 
 ## Invocation
 

@@ -48,7 +48,6 @@ Workload options:
   --io-engine <value>            Override io_engine
   --filename <value>            Override filename
   --direct <value>            Override direct
-  --sync-mode <value>            Override sync_mode
   --rw <value>            Override rw
   --block-size <value>            Override block_size
   --size <value>            Override size
@@ -56,8 +55,6 @@ Workload options:
   --num-jobs <value>            Override num_jobs
   --warmup-duration-sec <value>            Override warmup_duration_sec
   --runtime <value>            Override runtime
-  --time-based <value>            Override time_based
-  --stonewall <value>            Override stonewall
 
 Information:
   --specification               Print this workload's specification and exit
@@ -94,7 +91,6 @@ SAVE_OPTIONS_FILE=""
 IO_ENGINE=""
 FILENAME=""
 DIRECT=""
-SYNC_MODE=""
 RW=""
 BLOCK_SIZE=""
 SIZE=""
@@ -102,8 +98,6 @@ IO_DEPTH=""
 NUM_JOBS=""
 WARMUP_DURATION_SEC=""
 RUNTIME=""
-TIME_BASED=""
-STONEWALL=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -127,7 +121,6 @@ while [[ $# -gt 0 ]]; do
     --io-engine) IO_ENGINE="${2:-}"; shift 2 ;;
     --filename) FILENAME="${2:-}"; shift 2 ;;
     --direct) DIRECT="${2:-}"; shift 2 ;;
-    --sync-mode) SYNC_MODE="${2:-}"; shift 2 ;;
     --rw) RW="${2:-}"; shift 2 ;;
     --block-size) BLOCK_SIZE="${2:-}"; shift 2 ;;
     --size) SIZE="${2:-}"; shift 2 ;;
@@ -135,8 +128,6 @@ while [[ $# -gt 0 ]]; do
     --num-jobs) NUM_JOBS="${2:-}"; shift 2 ;;
     --warmup-duration-sec) WARMUP_DURATION_SEC="${2:-}"; shift 2 ;;
     --runtime) RUNTIME="${2:-}"; shift 2 ;;
-    --time-based) TIME_BASED="${2:-}"; shift 2 ;;
-    --stonewall) STONEWALL="${2:-}"; shift 2 ;;
     --help|--specification|--matrix-definition) shift ;;
     *) die "Unknown option: $1" ;;
   esac
@@ -178,7 +169,6 @@ PY
 IO_ENGINE="${IO_ENGINE:-$(yaml_get io_engine)}"
 FILENAME="${FILENAME:-$(yaml_get filename)}"
 DIRECT="${DIRECT:-$(yaml_get direct)}"
-SYNC_MODE="${SYNC_MODE:-$(yaml_get sync_mode)}"
 RW="${RW:-$(yaml_get rw)}"
 BLOCK_SIZE="${BLOCK_SIZE:-$(yaml_get block_size)}"
 SIZE="${SIZE:-$(yaml_get size)}"
@@ -186,8 +176,6 @@ IO_DEPTH="${IO_DEPTH:-$(yaml_get io_depth)}"
 NUM_JOBS="${NUM_JOBS:-$(yaml_get num_jobs)}"
 WARMUP_DURATION_SEC="${WARMUP_DURATION_SEC:-$(yaml_get warmup_duration_sec)}"
 RUNTIME="${RUNTIME:-$(yaml_get runtime)}"
-TIME_BASED="${TIME_BASED:-$(yaml_get time_based)}"
-STONEWALL="${STONEWALL:-$(yaml_get stonewall)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-$(yaml_get output_format)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-csv}"
 
@@ -196,7 +184,6 @@ BENCHMARK_RUN_COMMAND="bash run_benchmark.sh --${PROFILE}"
 [[ -n "${IO_ENGINE}" ]] && BENCHMARK_RUN_COMMAND+=" --io-engine $(printf %q "${IO_ENGINE}")"
 [[ -n "${FILENAME}" ]] && BENCHMARK_RUN_COMMAND+=" --filename $(printf %q "${FILENAME}")"
 [[ -n "${DIRECT}" ]] && BENCHMARK_RUN_COMMAND+=" --direct $(printf %q "${DIRECT}")"
-[[ -n "${SYNC_MODE}" ]] && BENCHMARK_RUN_COMMAND+=" --sync-mode $(printf %q "${SYNC_MODE}")"
 [[ -n "${RW}" ]] && BENCHMARK_RUN_COMMAND+=" --rw $(printf %q "${RW}")"
 [[ -n "${BLOCK_SIZE}" ]] && BENCHMARK_RUN_COMMAND+=" --block-size $(printf %q "${BLOCK_SIZE}")"
 [[ -n "${SIZE}" ]] && BENCHMARK_RUN_COMMAND+=" --size $(printf %q "${SIZE}")"
@@ -204,8 +191,6 @@ BENCHMARK_RUN_COMMAND="bash run_benchmark.sh --${PROFILE}"
 [[ -n "${NUM_JOBS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-jobs $(printf %q "${NUM_JOBS}")"
 [[ -n "${WARMUP_DURATION_SEC}" ]] && BENCHMARK_RUN_COMMAND+=" --warmup-duration-sec $(printf %q "${WARMUP_DURATION_SEC}")"
 [[ -n "${RUNTIME}" ]] && BENCHMARK_RUN_COMMAND+=" --runtime $(printf %q "${RUNTIME}")"
-[[ -n "${TIME_BASED}" ]] && BENCHMARK_RUN_COMMAND+=" --time-based $(printf %q "${TIME_BASED}")"
-[[ -n "${STONEWALL}" ]] && BENCHMARK_RUN_COMMAND+=" --stonewall $(printf %q "${STONEWALL}")"
 set_benchmark_run_command "${BENCHMARK_RUN_COMMAND}"
 
 HOSTNAME_VALUE="$(hostname -s 2>/dev/null || hostname)"
@@ -251,7 +236,6 @@ run_collection() {
   grep -q -- '--io-engine' <<<"${help}" && collect_args+=(--io-engine "${IO_ENGINE}")
   grep -q -- '--filename' <<<"${help}" && collect_args+=(--filename "${FILENAME}")
   grep -q -- '--direct' <<<"${help}" && collect_args+=(--direct "${DIRECT}")
-  grep -q -- '--sync-mode' <<<"${help}" && collect_args+=(--sync-mode "${SYNC_MODE}")
   grep -q -- '--rw' <<<"${help}" && collect_args+=(--rw "${RW}")
   grep -q -- '--block-size' <<<"${help}" && collect_args+=(--block-size "${BLOCK_SIZE}")
   grep -q -- '--size' <<<"${help}" && collect_args+=(--size "${SIZE}")
@@ -259,8 +243,6 @@ run_collection() {
   grep -q -- '--num-jobs' <<<"${help}" && collect_args+=(--num-jobs "${NUM_JOBS}")
   grep -q -- '--warmup-duration-sec' <<<"${help}" && collect_args+=(--warmup-duration-sec "${WARMUP_DURATION_SEC}")
   grep -q -- '--runtime' <<<"${help}" && collect_args+=(--runtime "${RUNTIME}")
-  grep -q -- '--time-based' <<<"${help}" && collect_args+=(--time-based "${TIME_BASED}")
-  grep -q -- '--stonewall' <<<"${help}" && collect_args+=(--stonewall "${STONEWALL}")
 
   printf -v collect_cmd '%q ' "${PYTHON_BIN}" scripts/collect_workload.py "${collect_args[@]}"
   echo "[RUN] ${collect_cmd}"

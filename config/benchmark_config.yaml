@@ -11,7 +11,6 @@ sweep:
   io_engine: libaio
   filename: data/fio_target.bin
   direct: 1
-  sync_mode: async
   rw:
     smoke: randread
     baseline: randread,randwrite
@@ -37,5 +36,3 @@ sweep:
     smoke: 5
     baseline: 15
     extended: 12
-  time_based: 1
-  stonewall: 1

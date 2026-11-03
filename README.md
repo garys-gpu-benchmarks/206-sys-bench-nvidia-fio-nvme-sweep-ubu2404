@@ -85,7 +85,7 @@ Three operator scripts from [`garys-gpu-benchmarks/gpu-bench-suite`](https://git
 
 ## 1. Overview
 
-Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path. direct: 1. Sweep dimensions: io_engine, filename, direct, sync_mode, rw, block_size, size, io_depth.
+Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path. direct: 1. Sweep dimensions: io_engine, filename, direct, rw, block_size, size, io_depth, num_jobs.
 
 ## 2. What It Validates
 
