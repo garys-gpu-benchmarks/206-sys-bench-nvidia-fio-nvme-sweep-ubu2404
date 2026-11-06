@@ -18,10 +18,10 @@ FIO NVMe Sweep
 Run apt-installed fio --output-format=json --ioengine=libaio against yaml filename (default data/fio_target.bin), expanding the cartesian yaml rw x block_size x io_depth sweep with size, num_jobs, and runtime, to measure IOPS, bandwidth, and completion-latency percentiles. This is file-backed storage I/O, not a DRAM microbenchmark
 
 ## Main Goal
-Measure fio IOPS, bandwidth, and tail latency across a yaml sweep
+Measure fio IOPS, bandwidth, and latency across a yaml sweep
 
 ## Validation Objective
-Validates that each fio JSON job completes and parses IOPS, bandwidth, and clat percentiles. This is storage I/O, not a memory test
+Validates fio JSON storage IOPS, bandwidth, and clat percentiles for each sweep case
 
 ## Workload Category
 Memory, Bandwidth & Data Movement
