@@ -16,12 +16,11 @@ capture_benchmark_run_command_submitted "$@"
 
 usage() {
   cat <<'USAGE'
+
 Usage: bash run_benchmark.sh [OPTIONS]
 
 Workload Name:          FIO NVMe Sweep.
 Main Goal:              Measure fio IOPS, bandwidth, and latency across a yaml sweep.
-Validation Objective:   Validates fio JSON storage IOPS, bandwidth, and clat percentiles for each
-                        sweep case.
 Command Tools Executed: Run the system fio executable with --output-format=json and libaio against
                         yaml filename.
 

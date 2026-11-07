@@ -35,6 +35,11 @@
     "value": "Measure fio IOPS, bandwidth, and latency across a yaml sweep"
   },
   {
+    "field_name": "Command Tools Executed",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run the system fio executable with --output-format=json and libaio against yaml filename"
+  },
+  {
     "field_name": "Metrics",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "#1: IOPS mean at first sweep case (iops_mean); #2: Bandwidth at first sweep case, MB/s (bandwidth_mb_s); #3: Completion latency p50 at first sweep case, us (clat_p50_us)"
@@ -140,16 +145,6 @@
     "value": "-"
   },
   {
-    "field_name": "Validation Objective",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Validates fio JSON storage IOPS, bandwidth, and clat percentiles for each sweep case"
-  },
-  {
-    "field_name": "Command Tools Executed",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run the system fio executable with --output-format=json and libaio against yaml filename"
-  },
-  {
     "field_name": "run_benchmark Command Plus Options for Smoke Run (One minute or less)",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "bash run_benchmark.sh --smoke --validate --io-engine libaio --filename data/fio_target.bin --direct 1 --rw randread --block-size 4k --size 64m --io-depth 1,8 --num-jobs 4 --warmup-duration-sec 0 --runtime 5"
@@ -163,6 +158,11 @@
     "field_name": "run_benchmark Command Plus Options for Extended Run (8 to 15 minutes)",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "bash run_benchmark.sh --extended --validate --io-engine libaio --filename data/fio_target.bin --direct 1 --rw randread,randwrite,read,write --block-size 4k,8k,128k --size 4g --io-depth 1,8,32,64 --num-jobs 4 --warmup-duration-sec 1 --runtime 12"
+  },
+  {
+    "field_name": "Validation Objective",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Validates fio JSON storage IOPS, bandwidth, and clat percentiles for each sweep case"
   },
   {
     "field_name": "Command Execution Details and Purpose",
