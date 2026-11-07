@@ -31,14 +31,28 @@ Profiles (default: --smoke):
 
 Parameters (override the profile's value):
   --io-engine <value>           Shared workload parameter (smoke/baseline/extended: libaio)
-  --filename <value>            Shared workload parameter (smoke/baseline/extended: data/fio_target.bin)
+  --filename <value>            Shared workload parameter
+                                  all profiles: data/fio_target.bin
   --direct <value>              Shared workload parameter (smoke/baseline/extended: 1)
-  --rw <value>                  Shared workload parameter (smoke randread, baseline randread,randwrite, extended randread,randwrite,read,write)
-  --block-size <value>          Work unit or block size (smoke 4k, baseline 4k,8k, extended 4k,8k,128k)
+  --rw <value>                  Shared workload parameter
+                                  smoke:    randread
+                                  baseline: randread,randwrite
+                                  extended: randread,randwrite,read,write
+  --block-size <value>          Work unit or block size
+                                  smoke:    4k
+                                  baseline: 4k,8k
+                                  extended: 4k,8k,128k
   --size <value>                Shared workload parameter (smoke 64m, baseline 1g, extended 4g)
-  --io-depth <value>            Shared workload parameter (smoke 1,8, baseline 1,8,32, extended 1,8,32,64)
+  --io-depth <value>            Shared workload parameter
+                                  smoke:    1,8
+                                  baseline: 1,8,32
+                                  extended: 1,8,32,64
   --num-jobs <value>            Shared workload parameter (smoke/baseline/extended: 4)
-  --warmup-duration-sec <value> Shared workload parameter (smoke 0, baseline 2, extended 1)
+  --warmup-duration-sec <value>
+                                Shared workload parameter
+                                  smoke:    0
+                                  baseline: 2
+                                  extended: 1
   --runtime <value>             Shared workload parameter (smoke 5, baseline 15, extended 12)
 
 General options:
