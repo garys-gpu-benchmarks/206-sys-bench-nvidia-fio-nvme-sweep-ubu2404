@@ -19,10 +19,10 @@ usage() {
 
 Usage: bash run_benchmark.sh [OPTIONS]
 
-Workload Name:          FIO NVMe Sweep.
-Main Goal:              Measure fio IOPS, bandwidth, and latency across a yaml sweep.
+Workload Name:          FIO NVMe Sweep
+Main Goal:              Measure fio IOPS, bandwidth, and latency across a yaml sweep
 Command Tools Executed: Run the system fio executable with --output-format=json and libaio against
-                        yaml filename.
+                        yaml filename
 
 Profiles (default: --smoke):
   --smoke                       Run smoke profile
