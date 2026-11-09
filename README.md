@@ -49,6 +49,7 @@ Profile values live in `config/benchmark_config.yaml`.
 | 1 | IOPS mean at first sweep case | `iops_mean` |
 | 2 | Bandwidth at first sweep case, MB/s | `bandwidth_mb_s` |
 | 3 | Completion latency p50 at first sweep case, us | `clat_p50_us` |
+| 4 | IOPS, 4k random read, iodepth 8 x 4 jobs = 32 in flight, every profile | `iops_mean__randread_4k_qd8` |
 
 ### Notes
 
