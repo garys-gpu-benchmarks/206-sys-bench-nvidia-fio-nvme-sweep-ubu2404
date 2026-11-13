@@ -40,6 +40,11 @@
     "value": "Run the system fio executable with --output-format=json and libaio against yaml filename"
   },
   {
+    "field_name": "Execution Description With Parameters",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path. direct: 1. rw/block_size/io_depth: swept from yaml lists. size: job file size (smoke 64m, baseline 1g). runtime: seconds (smoke 5, baseline 15). num_jobs: parallel jobs. warmup_duration_sec, stonewall, and sync_mode are yaml fields and are not passed to fio. time_based is enabled"
+  },
+  {
     "field_name": "Metrics",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "#1: IOPS mean at first sweep case (iops_mean); #2: Bandwidth at first sweep case, MB/s (bandwidth_mb_s); #3: Completion latency p50 at first sweep case, us (clat_p50_us); #4: IOPS, 4k random read, iodepth 8 x 4 jobs = 32 in flight, every profile (iops_mean__randread_4k_qd8)"
@@ -173,11 +178,6 @@
     "field_name": "Command Methodology",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "Run fio --output-format=json --ioengine=libaio against yaml filename, expanding the cartesian rw, block_size, and io_depth sweep with size, num_jobs, and runtime, to measure IOPS, bandwidth, and clat percentiles. This is file-backed storage I/O, not a DRAM test. warmup_duration_sec and stonewall are not passed to fio"
-  },
-  {
-    "field_name": "Execution Description With Parameters",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Cartesian fio sweep writing JSON jobs against a file target (default data/fio_target.bin), not necessarily a raw /dev/nvme device. io_engine: libaio. filename: target path. direct: 1. rw/block_size/io_depth: swept from yaml lists. size: job file size (smoke 64m, baseline 1g). runtime: seconds (smoke 5, baseline 15). num_jobs: parallel jobs. warmup_duration_sec, stonewall, and sync_mode are yaml fields and are not passed to fio. time_based is enabled"
   },
   {
     "field_name": "Execution Domain",
